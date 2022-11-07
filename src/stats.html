@@ -43,10 +43,10 @@
                         </li>
                     </ul>
                 </div>
-                <span class="text-xs font-bold border-b-4 border-peach-orange w-full">Online<br>10</span>
-                <span class="text-xs font-bold border-b-4 border-salmon w-full">Paused<br>10</span>
-                <span class="text-xs font-bold border-b-4 border-pastel-red w-full">Offline<br>10</span>
-                <span class="text-xs font-bold border-b-4 border-violet-red w-full">Disabled<br>10</span>
+                <span class="text-xs font-bold border-b-4 border-peach-orange w-full">Online<br><span id="onlineCount">10</span></span>
+                <span class="text-xs font-bold border-b-4 border-salmon w-full">Paused<br><span id="suspendedCount">10</span></span>
+                <span class="text-xs font-bold border-b-4 border-pastel-red w-full">Offline<br><span id="offlineCount">10</span></span>
+                <span class="text-xs font-bold border-b-4 border-violet-red w-full">Disabled<br><span id="disabledCount">10</span></span>
             </div>
         </header>
         <main class="flex-1 overflow-y-auto p-2 bg-black">
@@ -61,6 +61,39 @@
         </main>
     </div>
     <script>
+        function setBotStatus(){
+            $.ajax({
+                dataType: "json",
+                url: 'json/bots.json',
+                success: (jqXHR, status, exception) => {
+                    let onlineCount = 0, offlineCount = 0, suspendedCount = 0, disabledCount = 0;
+                    jqXHR.forEach(element => {
+                        switch(element.status){
+                            case 'online':
+                                onlineCount++;
+                                break;
+                            case 'offline':
+                                offlineCount++;
+                                break;
+                            case 'suspended':
+                                suspendedCount++;
+                                break;
+                            case 'disabled':
+                                disabledCount++;
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                    $('#onlineCount').text(onlineCount);
+                    $('#suspendedCount').text(suspendedCount);
+                    $('#offlineCount').text(offlineCount);
+                    $('#disabledCount').text(disabledCount);
+                },
+                error: (jqXHR, status, exception) => {console.error(status, exception)}
+            })
+        }
+
         $(document).ready(() => {
             $.ajax({
                 dataType: "json",
@@ -68,8 +101,9 @@
                 success: onUserFetchedCallback,
                 error: (jqXHR, status, exception) => {console.error(status, exception)}
             })
-            //TODO retrieve info
+            setBotStatus();
         })
+
         function onUserFetchedCallback(jqXHR, status, exception){
             let onlineCount = 0, offlineCount = 0, suspendedCount = 0, disabledCount = 0;
             jqXHR.forEach(element => {
