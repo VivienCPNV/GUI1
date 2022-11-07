@@ -37,16 +37,15 @@ a dialog box whould pop-up and ask the needed info rather then needing to move t
 # Resources
 - [Tailwind dashboard](https://github.com/creativetimofficial/tailwind-starter-kit/tree/main/Dashboard%20Page/html-dashboard-page)
 - Color palette
-	- Background: #85839C
-	- Foreground: #343350
-	- Random: #252549
-	- Random: #BF3C6B
-	- Random: #AD3172
-	- Random: #831940
-	- Special-Random: #FFC89B
-	- Special-Random: #FF8B70
-	- Special-Random: #FF5D65
-	
+	- Roman Silver: #85839C
+	- Jacarta: #343350
+	- Space Cadet: #252549
+	- Irresistible: #BF3C6B
+	- Max Red Purple: #AD3172
+	- Violet Red: #831940
+	- Peach Orange: #FFC89B
+	- Salmon: #FF8B70
+	- Pastel Red: #FF5D65
 - Font:
 # Schema
-
+A link to the schema of the panel can be found on figma [here](https://www.figma.com/file/ijqS9Y1ZltMuP3ozoo1mq7/GUI1?node-id=0%3A1)
