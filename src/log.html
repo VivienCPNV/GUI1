@@ -48,7 +48,7 @@
                 <span class="text-xs font-bold border-b-4 border-violet-red w-full">Disabled<br>10</span>
             </div>
         </header>
-        <main class="flex-1 overflow-y-auto p-2 bg-gray-900">
+        <main class="flex-1 overflow-y-auto p-2 bg-black">
             <div class="flex flex-col h-full space-y-2">
                 <div id="console" class="overflow-y-auto bg-black border border-gray-300 rounded grow w-full p-2">
                 </div>
@@ -85,7 +85,7 @@
         function getRndInteger(min, max) {
             return Math.floor(Math.random() * (max - min) ) + min;
         }
-        
+
         function getCurrentDate() {
             const today = new Date();
             const yyyy = today.getFullYear();
