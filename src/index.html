@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/index.css" rel="stylesheet">
+    <script type="text/javascript">
+        function toggleModal(modalID) {
+            document.getElementById(modalID).classList.toggle("hidden");
+            document.getElementById(modalID + "-backdrop").classList.toggle("hidden");
+            document.getElementById(modalID).classList.toggle("flex");
+            document.getElementById(modalID + "-backdrop").classList.toggle("flex");
+        }
+    </script>
+    <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="flex flex-col h-screen">
+        <header class="p-3 bg-jacarta text-white text-center">
+            <div class="flex items-center justify-center w-full space-x-2">
+                <button id="dropdownMenuDefault" data-dropdown-toggle="dropdownMenu">
+                    <svg class="w-full h-full" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <div id="dropdownMenu" class="hidden z-10 w-44 bg-jacarta rounded divide-y text-left border">
+                    <ul class="py-1 text-sm" aria-labelledby="dropdownMenuDefault">
+                        <li>
+                            <a href="index.html" class="block py-2 px-4">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="log.html" class="block py-2 px-4">Logs</a>
+                        </li>
+                        <li>
+                            <a href="stats.html" class="block py-2 px-4">Stats</a>
+                        </li>
+                    </ul>
+                </div>
+                <span class="text-xs font-bold border-b-4 border-peach-orange w-full">Online<br>10</span>
+                <span class="text-xs font-bold border-b-4 border-salmon w-full">Paused<br>10</span>
+                <span class="text-xs font-bold border-b-4 border-pastel-red w-full">Offline<br>10</span>
+                <span class="text-xs font-bold border-b-4 border-violet-red w-full">Disabled<br>10</span>
+            </div>
+        </header>
+        <main class="flex-1 overflow-y-auto p-2 bg-gray-900">
+            <ul id="botlist" role="list" class="divide-y divide-gray-200 dark:divide-gray-700 space-y-2">
+            </ul>
+            <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center"
+                id="editUserModal">
+                <div class="relative w-5/6 my-6 mx-auto max-w-3xl">
+                    <!--content-->
+                    <div
+                        class="border rounded-lg shadow-lg relative flex flex-col w-full bg-peach-orange outline-none focus:outline-none">
+                        <!--header-->
+                        <div
+                            class="flex items-start justify-between p-2 border-b border-solid border-slate-200 rounded-t">
+                            <h3 class="text-xl font-semibold">
+                                Edit user
+                            </h3>
+                            <button
+                                class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                onclick="toggleModal('editUserModal')">
+                                <span
+                                    class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                                    ×
+                                </span>
+                            </button>
+                        </div>
+                        <!--body-->
+                        <div class="relative p-2 flex-auto">
+                            <form action="#">
+                                <div>
+                                    <label for="username" class="block mb-2 text-sm font-medium">Username</label>
+                                    <input type="text" name="username" id="username" class="text-sm border border-gray-300 block w-full bg-salmon">
+                                </div>
+                                <div>
+                                    <label for="bot-type" class="block mb-2 text-sm font-medium">Bot type</label>
+                                    <select name="bot-type" id="bot-type" class="text-sm border border-gray-300 block w-full bg-salmon">
+                                        <option value="steam">Steam</option>
+                                        <option value="discord">Discord</option>
+                                        <option value="whatsapp">Whatsapp</option>
+                                        <option value="telegram">Telegram</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="login-username" class="block mb-2 text-sm font-medium">Login username</label>
+                                    <input type="text" name="login-username" id="login-username" class="text-sm border border-gray-300 block w-full bg-salmon">
+                                </div>
+                                <div>
+                                    <label for="login-password" class="block mb-2 text-sm font-medium">Login password</label>
+                                    <input type="password" name="login-password" id="login-password" class="text-sm border border-gray-300 block w-full bg-salmon">
+                                </div>
+                                <div>
+                                    <label for="password-encryption" class="block mb-2 text-sm font-medium">Password encryption</label>
+                                    <select name="password-encryption" id="password-encryption" class="text-sm border border-gray-300 block w-full bg-salmon">
+                                        <option value="DES">DES</option>
+                                        <option value="AES">AES</option>
+                                        <option value="RSA">RSA</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="public-status" class="block mb-2 text-sm font-medium">Public status</label>
+                                    <select name="public-status" id="public-status" class="text-sm border border-gray-300 block w-full bg-salmon">
+                                        <option value="online">Online</option>
+                                        <option value="busy">Busy</option>
+                                        <option value="away">Away</option>
+                                        <option value="invisible">Invisible</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <!--footer-->
+                        <div class="flex items-center justify-end p-2 border-t border-solid border-slate-200 rounded-b space-x-2">
+                            <button
+                                class="w-full h-12 font-bold uppercase text-sm outline-none bg-salmon"
+                                type="button" onclick="toggleModal('editUserModal')">
+                                Close
+                            </button>
+                            <button
+                                class="w-full h-12 font-bold uppercase text-sm outline-none bg-violet-red"
+                                type="button" onclick="toggleModal('editUserModal')">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="editUserModal-backdrop"></div>
+        </main>
+    </div>
+    <script>
+        $(document).ready(()=>{
+            $.ajax({
+                dataType: "json",
+                url: 'json/bots.json',
+                success: onUserFetchedCallback,
+                error: (jqXHR, status, exception) => {console.error(status, exception)}
+            })
+        });
+
+        function onUserFetchedCallback(jqXHR, status, exception){
+            jqXHR.forEach(element => {
+                addBotAccount(element.name, element.status);
+            });
+        }
+
+        function addBotAccount(username, status){
+            let botList = document.getElementById('botlist');
+            let statusText = '';
+            let bgColor = '';
+            switch(status){
+                case 'online':
+                    statusText = "Online";
+                    bgColor = 'bg-peach-orange';
+                    break;
+                case 'suspended':
+                    statusText = 'Suspended';
+                    bgColor = 'bg-salmon';
+                    break;
+                case 'offline':
+                    statusText = 'Offline';
+                    bgColor = 'bg-pastel-red';
+                    break;
+                case 'disabled':
+                   statusText = 'Disabled';
+                   bgColor = 'bg-violet-red';
+                   break;
+                default:
+                    statusText = 'Unknown';
+                    bgColord = 'bg-peach-orange';
+                    break;
+            }
+            botList.innerHTML += `
+            <li class="p-3 ${bgColor}">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-shrink-0">
+                            <svg width="64" height="64" viewBox="0 0 64 64" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M56.5 7.5V56.5H7.5V7.5H56.5ZM56.5 0.5H7.5C3.615 0.5 0.5 3.65 0.5 7.5V56.5C0.5 60.35 3.615 63.5 7.5 63.5H56.5C60.35 63.5 63.5 60.35 63.5 56.5V7.5C63.5 3.65 60.35 0.5 56.5 0.5ZM32 32C26.225 32 21.5 27.275 21.5 21.5C21.5 15.725 26.225 11 32 11C37.775 11 42.5 15.725 42.5 21.5C42.5 27.275 37.775 32 32 32ZM32 18C30.075 18 28.5 19.575 28.5 21.5C28.5 23.425 30.075 25 32 25C33.925 25 35.5 23.425 35.5 21.5C35.5 19.575 33.925 18 32 18ZM53 53H11V47.645C11 38.895 24.895 35.115 32 35.115C39.105 35.115 53 38.895 53 47.645V53ZM19.085 46H44.915C42.5 44.04 36.585 42.08 32 42.08C27.415 42.08 21.465 44.04 19.085 46Z"
+                                    fill="black" />
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-lg font-medium text-gray-900 truncate dark:text-white">
+                                ${username}
+                            </p>
+                            <p class="text-xs text-gray-500 truncate dark:text-gray-400">
+                                ${status}
+                            </p>
+                        </div>
+                        <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#editUserModal"
+                                onclick="toggleModal('editUserModal')">
+                                <svg class="mr-1" width="20" height="20" viewBox="0 0 19 19" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M0 15.25V19H3.75L14.81 7.94L11.06 4.19L0 15.25ZM17.71 5.04C18.1 4.65 18.1 4.02 17.71 3.63L15.37 1.29C14.98 0.899998 14.35 0.899998 13.96 1.29L12.13 3.12L15.88 6.87L17.71 5.04Z"
+                                        fill="black" />
+                                </svg>
+                            </button>
+                            <svg class="mr-1" width="20" height="20" viewBox="0 0 12 14" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 14H4V0H0V14ZM8 0V14H12V0H8Z" fill="black" />
+                            </svg>
+                            <svg class="mr-1" width="20" height="20" viewBox="0 0 16 22" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 5V8L12 4L8 0V3C3.58 3 0 6.58 0 11C0 12.57 0.46 14.03 1.24 15.26L2.7 13.8C2.25 12.97 2 12.01 2 11C2 7.69 4.69 5 8 5ZM14.76 6.74L13.3 8.2C13.74 9.04 14 9.99 14 11C14 14.31 11.31 17 8 17V14L4 18L8 22V19C12.42 19 16 15.42 16 11C16 9.43 15.54 7.97 14.76 6.74Z"
+                                    fill="black" />
+                            </svg>
+                            <svg class="mr-1" width="20" height="20" viewBox="0 0 18 18" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10 0H8V10H10V0ZM14.83 2.17L13.41 3.59C14.99 4.86 16 6.81 16 9C16 12.87 12.87 16 9 16C5.13 16 2 12.87 2 9C2 6.81 3.01 4.86 4.58 3.58L3.17 2.17C1.23 3.82 0 6.26 0 9C0 13.97 4.03 18 9 18C13.97 18 18 13.97 18 9C18 6.26 16.77 3.82 14.83 2.17Z"
+                                    fill="black" />
+                            </svg>
+
+                        </div>
+                    </div>
+                </li>`
+        }
+    </script>
+</body>
+
+</html>

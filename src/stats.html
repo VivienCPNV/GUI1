@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/index.css" rel="stylesheet">
+    <script type="text/javascript">
+        function toggleModal(modalID) {
+            document.getElementById(modalID).classList.toggle("hidden");
+            document.getElementById(modalID + "-backdrop").classList.toggle("hidden");
+            document.getElementById(modalID).classList.toggle("flex");
+            document.getElementById(modalID + "-backdrop").classList.toggle("flex");
+        }
+    </script>
+    <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="flex flex-col h-screen">
+        <header class="py-2 bg-jacarta text-white text-center">
+            <div class="flex items-center justify-center w-full space-x-2">
+                <button id="dropdownMenuDefault" data-dropdown-toggle="dropdownMenu">
+                    <svg class="w-full h-full" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <div id="dropdownMenu" class="hidden z-10 w-44 bg-jacarta rounded divide-y text-left border">
+                    <ul class="py-1 text-sm" aria-labelledby="dropdownMenuDefault">
+                        <li>
+                            <a href="index.html" class="block py-2 px-4">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="log.html" class="block py-2 px-4">Logs</a>
+                        </li>
+                        <li>
+                            <a href="stats.html" class="block py-2 px-4">Stats</a>
+                        </li>
+                    </ul>
+                </div>
+                <span class="text-xs font-bold border-b-4 border-peach-orange w-full">Online<br>10</span>
+                <span class="text-xs font-bold border-b-4 border-salmon w-full">Paused<br>10</span>
+                <span class="text-xs font-bold border-b-4 border-pastel-red w-full">Offline<br>10</span>
+                <span class="text-xs font-bold border-b-4 border-violet-red w-full">Disabled<br>10</span>
+            </div>
+        </header>
+        <main class="flex-1 overflow-y-auto p-2 bg-gray-900">
+            <div class="flex flex-col h-full space-y-2">
+                <div class="w-full">
+                    <canvas id="botsActivityGraph"></canvas>
+                </div>
+                <div class="w-full bg-jacarta rounded">
+                    <canvas id="resourcesUsageGraph"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        $(document).ready(() => {
+            $.ajax({
+                dataType: "json",
+                url: 'json/bots.json',
+                success: onUserFetchedCallback,
+                error: (jqXHR, status, exception) => {console.error(status, exception)}
+            })
+            //TODO retrieve info
+        })
+        function onUserFetchedCallback(jqXHR, status, exception){
+            let onlineCount = 0, offlineCount = 0, suspendedCount = 0, disabledCount = 0;
+            jqXHR.forEach(element => {
+                switch(element.status){
+                    case 'online':
+                        onlineCount++;
+                        break;
+                    case 'offline':
+                        offlineCount++;
+                        break;
+                    case 'suspended':
+                        suspendedCount++;
+                        break;
+                    case 'disabled':
+                        disabledCount++;
+                        break;
+                    default:
+                        break;
+                }
+            });
+            addBotAccountsGraph(onlineCount, offlineCount, suspendedCount, disabledCount);
+            addResourcesUsageGraph();
+        }
+        function addBotAccountsGraph(onlineCount, offlineCount, suspendedCount, disabledCount) {
+            const botsActivityGraph = {
+                labels: ["Online", "Offline", "Suspended", "Disabled"],
+                datasets: [
+                    {
+                        label: "Bots Activity Dataset",
+                        data: [onlineCount, offlineCount, suspendedCount, disabledCount],
+                        backgroundColor: [
+                            "#FFC89B",
+                            "#FF8B70",
+                            "#FF5D65",
+                            "#831940",
+                        ],
+                        hoverOffset: 4,
+                    },
+                ],
+            };
+            
+            const botsActivityConfig = {
+                type: "doughnut",
+                data: botsActivityGraph,
+                options:  {},
+            };
+
+            let botsChart = new Chart(document.getElementById('botsActivityGraph'), botsActivityConfig);
+        }
+
+        function getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
+
+        function addResourcesUsageGraph(){
+            let usage = [];
+            for(let i = 0; i < 13; i++){
+                usage.push(getRndInteger(0, 100));
+            }
+            const resourcesUsageGraph = {
+                labels: ["60 min", "55 min", "50 min", "45 min", "40 min", "35 min", "30 min", "25 min", "20 min", "15 min", "10 min", "5 min", "0 min"],
+                datasets: [
+                    {
+                        label: "Resources Usage Dataset",
+                        data: usage,
+                        backgroundColor: "#252549",
+                        borderColor: "#FFC89B",
+                    },
+                ],
+            };
+            
+            const resourcesUsageConfig = {
+                type: "line",
+                data: resourcesUsageGraph,
+                options:  {},
+            };
+
+            let resourcesChart = new Chart(document.getElementById('resourcesUsageGraph'), resourcesUsageConfig);
+        }
+    </script>
+</body>
+
+</html>

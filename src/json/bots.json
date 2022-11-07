@@ -1,0 +1,134 @@
+[
+    {
+        "name": "Node",
+        "status": "online",
+        "info": {
+            "botType": "steam",
+            "loginUsername": "node",
+            "loginPassword": "strongPassword",
+            "passwordEncryption": "AES",
+            "publicStatus": "online"
+        }
+    },
+    {
+        "name": "Node",
+        "status": "offline",
+        "info": {
+            "botType": "steam",
+            "loginUsername": "node",
+            "loginPassword": "strongPassword",
+            "passwordEncryption": "AES",
+            "publicStatus": "online"
+        }
+    },
+    {
+        "name": "Node",
+        "status": "suspended",
+        "info": {
+            "botType": "steam",
+            "loginUsername": "node",
+            "loginPassword": "strongPassword",
+            "passwordEncryption": "AES",
+            "publicStatus": "online"
+        }
+    },
+    {
+        "name": "Node",
+        "status": "disabled",
+        "info": {
+            "botType": "steam",
+            "loginUsername": "node",
+            "loginPassword": "strongPassword",
+            "passwordEncryption": "AES",
+            "publicStatus": "online"
+        }
+    },
+    {
+        "name": "Node",
+        "status": "online",
+        "info": {
+            "botType": "steam",
+            "loginUsername": "node",
+            "loginPassword": "strongPassword",
+            "passwordEncryption": "AES",
+            "publicStatus": "online"
+        }
+    },
+    {
+        "name": "Node",
+        "status": "offline",
+        "info": {
+            "botType": "steam",
+            "loginUsername": "node",
+            "loginPassword": "strongPassword",
+            "passwordEncryption": "AES",
+            "publicStatus": "online"
+        }
+    },
+    {
+        "name": "Node",
+        "status": "suspended",
+        "info": {
+            "botType": "steam",
+            "loginUsername": "node",
+            "loginPassword": "strongPassword",
+            "passwordEncryption": "AES",
+            "publicStatus": "online"
+        }
+    },
+    {
+        "name": "Node",
+        "status": "disabled",
+        "info": {
+            "botType": "steam",
+            "loginUsername": "node",
+            "loginPassword": "strongPassword",
+            "passwordEncryption": "AES",
+            "publicStatus": "online"
+        }
+    },
+    {
+        "name": "Node",
+        "status": "online",
+        "info": {
+            "botType": "steam",
+            "loginUsername": "node",
+            "loginPassword": "strongPassword",
+            "passwordEncryption": "AES",
+            "publicStatus": "online"
+        }
+    },
+    {
+        "name": "Node",
+        "status": "offline",
+        "info": {
+            "botType": "steam",
+            "loginUsername": "node",
+            "loginPassword": "strongPassword",
+            "passwordEncryption": "AES",
+            "publicStatus": "online"
+        }
+    },
+    {
+        "name": "Node",
+        "status": "suspended",
+        "info": {
+            "botType": "steam",
+            "loginUsername": "node",
+            "loginPassword": "strongPassword",
+            "passwordEncryption": "AES",
+            "publicStatus": "online"
+        }
+    },
+    {
+        "name": "Node",
+        "status": "disabled",
+        "info": {
+            "botType": "steam",
+            "loginUsername": "node",
+            "loginPassword": "strongPassword",
+            "passwordEncryption": "AES",
+            "publicStatus": "online"
+        }
+    }
+]

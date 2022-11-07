@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/index.css" rel="stylesheet">
+    <script type="text/javascript">
+        function toggleModal(modalID) {
+            document.getElementById(modalID).classList.toggle("hidden");
+            document.getElementById(modalID + "-backdrop").classList.toggle("hidden");
+            document.getElementById(modalID).classList.toggle("flex");
+            document.getElementById(modalID + "-backdrop").classList.toggle("flex");
+        }
+    </script>
+    <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="flex flex-col h-screen">
+        <header class="py-2 bg-jacarta text-white text-center">
+            <div class="flex items-center justify-center w-full space-x-2">
+                <button id="dropdownMenuDefault" data-dropdown-toggle="dropdownMenu">
+                    <svg class="w-full h-full" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <div id="dropdownMenu" class="hidden z-10 w-44 bg-jacarta rounded divide-y text-left border">
+                    <ul class="py-1 text-sm" aria-labelledby="dropdownMenuDefault">
+                        <li>
+                            <a href="index.html" class="block py-2 px-4">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="log.html" class="block py-2 px-4">Logs</a>
+                        </li>
+                        <li>
+                            <a href="stats.html" class="block py-2 px-4">Stats</a>
+                        </li>
+                    </ul>
+                </div>
+                <span class="text-xs font-bold border-b-4 border-peach-orange w-full">Online<br>10</span>
+                <span class="text-xs font-bold border-b-4 border-salmon w-full">Paused<br>10</span>
+                <span class="text-xs font-bold border-b-4 border-pastel-red w-full">Offline<br>10</span>
+                <span class="text-xs font-bold border-b-4 border-violet-red w-full">Disabled<br>10</span>
+            </div>
+        </header>
+        <main class="flex-1 overflow-y-auto p-2 bg-gray-900">
+            <div class="flex flex-col h-full space-y-2">
+                <div id="console" class="overflow-y-auto bg-black border border-gray-300 rounded grow w-full p-2">
+                </div>
+                <div class="space-x-2 w-full h-12 flex justify-center p-2">
+                    <button class="w-full bg-peach-orange" type="button" onclick="">
+                        Export logs
+                    </button>
+                    <button class="w-full bg-violet-red" type="button" onclick="clearLogs()">
+                        Clear logs
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        const logMessages = [
+            'Login !',
+            'Logout !',
+            'Disconnected !',
+            'Suspended !',
+            'Message received !',
+            'Response sent !'
+        ];
+        $(document).ready(()=>{
+            setInterval(()=>{
+                let userId = getRndInteger(1, 9999);
+                if (userId < 10) userId = '000' + userId;
+                if (userId < 100 && userId > 9) userId = '00' + userId;
+                if (userId < 1000 && userId > 99) userId = '0' + userId;
+                addLogEntry(`Client#${userId}`, logMessages[getRndInteger(0, logMessages.length -1)]);
+            }, 5000);
+        });
+
+        function getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min) ) + min;
+        }
+        
+        function getCurrentDate() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            let mm = today.getMonth() + 1; // Months start at 0!
+            let dd = today.getDate();
+            let hh = today.getHours();
+            let MM = today.getMinutes();
+            let ss = today.getSeconds();
+
+            if (dd < 10) dd = '0' + dd;
+            if (mm < 10) mm = '0' + mm;
+            if (hh < 10) hh = '0' + hh;
+            if (MM < 10) MM = '0' + MM;
+            if (ss < 10) ss = '0' + ss;
+
+
+            return '['+ yyyy + '/' + mm + '/' + dd + ' ' + hh + ':' + MM + ':' + ss +']';
+        }
+
+        function addLogEntry(client, message) {
+            let console = document.getElementById('console');
+            console.innerHTML += `
+            <p class="text-white text-sm"><span class="text-blue-700">${getCurrentDate()} </span><span
+                            class="text-green-500">${client}: </span>${message}</p>`;
+        }
+
+        function clearLogs(){
+            $('#console').empty();
+        }
+    </script>
+</body>
+
+</html>
