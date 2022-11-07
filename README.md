@@ -49,3 +49,15 @@ a dialog box whould pop-up and ask the needed info rather then needing to move t
 - Font:
 # Schema
 A link to the schema of the panel can be found on figma [here](https://www.figma.com/file/ijqS9Y1ZltMuP3ozoo1mq7/GUI1?node-id=0%3A1)
+# How to run
+Before trying to use this panel it is important to configure tailwind and and start the required php server
+## Create tailwind CSS
+```bash
+$ cd tailwind
+$ .\tailwindcss.exe -i .\input.css -o ..\src\css\index.css --watch
+```
+## Start php server
+```bash
+$ cd src
+$ php -S localhost:8080
+```
